@@ -219,6 +219,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     }
 
+    extra_vars = {
+      openshift_disable_check: 'disk_availability,memory_availability'
+    }
+
     admin1.vm.provision :ansible_local do |ansible|
       ansible.verbose        = true
       ansible.install        = true
@@ -237,6 +241,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.playbook = config_playbook
       ansible.groups = ansible_groups
       ansible.host_vars = ansible_host_vars
+      ansible.extra_vars = extra_vars
     end
   end
 end
